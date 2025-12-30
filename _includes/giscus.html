@@ -1,0 +1,48 @@
+<section class="comments-section">
+    <h3 class="comments-title">💬 评论</h3>
+    <div class="giscus-container">
+        <script src="https://giscus.app/client.js"
+                data-repo="RemainderTime/remaindertime.github.io"
+                data-repo-id="YOUR_REPO_ID"
+                data-category="General"
+                data-category-id="YOUR_CATEGORY_ID"
+                data-mapping="pathname"
+                data-strict="0"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="top"
+                data-theme="light"
+                data-lang="zh-CN"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async>
+        </script>
+    </div>
+</section>
+
+<style>
+.comments-section {
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 2px solid var(--border-color);
+}
+
+.comments-title {
+    font-size: 1.5em;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+}
+
+.giscus-container {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 24px;
+    border: 1px solid var(--border-color);
+}
+
+@media (prefers-color-scheme: dark) {
+    .giscus-container {
+        background: #1e293b;
+    }
+}
+</style>

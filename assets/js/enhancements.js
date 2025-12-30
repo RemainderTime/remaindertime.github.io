@@ -37,6 +37,42 @@
     });
   }
   
+  // Search overlay
+  function initSearch() {
+    const searchBtn = document.getElementById('search-btn-top');
+    const searchOverlay = document.getElementById('search-overlay');
+    const searchInput = document.getElementById('search-input');
+    
+    if (!searchBtn || !searchOverlay || !searchInput) return;
+    
+    // Open search
+    searchBtn.addEventListener('click', () => {
+      searchOverlay.classList.add('active');
+      searchInput.focus();
+    });
+    
+    // Close search on overlay click
+    searchOverlay.addEventListener('click', (e) => {
+      if (e.target === searchOverlay) {
+        searchOverlay.classList.remove('active');
+      }
+    });
+    
+    // Close search on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && searchOverlay.classList.contains('active')) {
+        searchOverlay.classList.remove('active');
+      }
+      
+      // Open search with Ctrl+K
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        searchOverlay.classList.add('active');
+        searchInput.focus();
+      }
+    });
+  }
+  
   // Code copy button
   function initCodeCopy() {
     const codeBlocks = document.querySelectorAll('pre code');
@@ -93,7 +129,7 @@
       return;
     }
     
-    let tocHTML = '<nav class="toc"><div class="toc-title">目录</div><ul class="toc-list">';
+    let tocHTML = '<nav class="toc"><div class="toc-title">📑 目录</div><ul class="toc-list">';
     
     headings.forEach((heading, index) => {
       const level = parseInt(heading.tagName.charAt(1));
@@ -194,14 +230,30 @@
     });
   }
   
+  // Mobile menu toggle
+  function initMobileMenu() {
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    if (!menuToggle || !navLinks) return;
+    
+    menuToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      navLinks.classList.toggle('active');
+      menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+    });
+  }
+  
   // Initialize all enhancements
   document.addEventListener('DOMContentLoaded', function() {
     initReadingProgress();
     initBackToTop();
+    initSearch();
     initCodeCopy();
     initTOC();
     initLazyLoad();
     initSmoothScroll();
+    initMobileMenu();
   });
   
 })();
