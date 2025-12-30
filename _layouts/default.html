@@ -25,8 +25,7 @@
     <!-- Ghost outputs important style and meta data with this tag -->
     {% include head.html %}
     
-    <!-- Theme toggle script (load early to prevent flash) -->
-    <script src="/assets/js/theme-toggle.js"></script>
+
 
 </head>
 <body class="{% if paginator.page > 1 %}paged archive-template{% elsif page.class %}{{ page.class }}{% else %}home-template{% endif %} nav-closed">
@@ -45,10 +44,7 @@
         </div>
     </div>
     
-    <!-- Theme toggle button -->
-    <button id="theme-toggle" aria-label="切换主题">
-        <span class="theme-icon">🌙</span>
-    </button>
+
     
     <!-- Back to top button -->
     <button id="back-to-top" aria-label="返回顶部">↑</button>
