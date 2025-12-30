@@ -1,0 +1,209 @@
+/* 时光轴基础样式 */
+.moments-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    position: sticky;
+    top: 20px;
+    z-index: 100;
+}
+
+.mode-btn {
+    padding: 8px 20px;
+    border: 1px solid #ddd;
+    background: var(--bg-color, #fff);
+    color: var(--text-color, #333);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.mode-btn:hover {
+    border-color: #3498db;
+    color: #3498db;
+}
+
+.mode-btn.active {
+    background: #3498db;
+    color: #fff;
+    border-color: #3498db;
+    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
+
+/* 容器动画 */
+#moments-container {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 400px;
+}
+
+/* --- 时间轴模式 (Timeline) --- */
+.mode-timeline {
+    position: relative;
+    padding-left: 30px;
+}
+
+.mode-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #eee;
+}
+
+.mode-timeline .moment-item {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.mode-timeline .moment-item::before {
+    content: '';
+    position: absolute;
+    left: -34px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #3498db;
+    border: 2px solid #fff;
+    z-index: 1;
+}
+
+.mode-timeline .moment-date {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #999;
+    font-size: 0.9em;
+}
+
+.mode-timeline .moment-card {
+    background: var(--card-bg, #fff);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* --- 照片墙模式 (Grid) --- */
+.mode-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.mode-grid .moment-item {
+    margin-bottom: 0;
+}
+
+.mode-grid .moment-date {
+    display: none;
+}
+
+.mode-grid .moment-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.mode-grid .moment-image {
+    height: 200px;
+}
+
+.mode-grid .moment-image img {
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- 列表模式 (List) --- */
+.mode-list .moment-item {
+    margin-bottom: 15px;
+}
+
+.mode-list .moment-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    gap: 20px;
+}
+
+.mode-list .moment-image {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+.mode-list .moment-image img {
+    border-radius: 8px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mode-list .moment-date {
+    font-size: 0.8em;
+    color: #bbb;
+    margin-bottom: 5px;
+}
+
+/* 通用卡片内部样式 */
+.moment-image img {
+    width: 100%;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.moment-card:hover .moment-image img {
+    transform: scale(1.05);
+}
+
+.moment-body {
+    padding: 20px;
+}
+
+.moment-mood {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.moment-text {
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: var(--text-color, #444);
+}
+
+.moment-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.moment-tag {
+    font-size: 0.8em;
+    color: #3498db;
+    background: rgba(52, 152, 219, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* 深色模式适配 */
+[data-theme="dark"] .mode-btn {
+    background: #2d2d2d;
+    border-color: #444;
+    color: #ccc;
+}
+
+[data-theme="dark"] .mode-timeline::before {
+    background: #444;
+}
+
+[data-theme="dark"] .moment-card {
+    background: #2d2d2d;
+    border-color: #444;
+}
+
+[data-theme="dark"] .moment-text {
+    color: #ccc;
+}
