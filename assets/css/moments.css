@@ -1,86 +1,124 @@
-/* 扁平化时光轴样式 */
+/* 高级感时光轴样式 */
 .moments-controls {
     display: flex;
-    gap: 10px;
-    margin-bottom: 50px;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 10px;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 40px;
+    background: var(--card-bg);
+    padding: 6px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .mode-btn {
-    padding: 10px 20px;
-    border: 2px solid var(--border-color);
-    background: var(--bg-color);
-    color: var(--text-color);
-    font-weight: 800;
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    font-weight: 600;
     cursor: pointer;
-    text-transform: uppercase;
     font-size: 13px;
+    border-radius: 8px;
+    transition: all 0.3s;
 }
 
 .mode-btn.active {
-    background: var(--text-color);
-    color: var(--bg-color);
+    background: var(--accent-color);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 /* 时间轴模式 */
+.mode-timeline {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
 .mode-timeline .moment-item {
-    margin-bottom: 80px;
-    border-left: 4px solid var(--border-color);
-    padding-left: 30px;
+    margin-bottom: 48px;
     position: relative;
 }
 
 .mode-timeline .moment-date {
-    font-size: 1.2em;
-    font-weight: 900;
-    margin-bottom: 20px;
-    background: var(--text-color);
-    color: var(--bg-color);
-    display: inline-block;
-    padding: 5px 15px;
+    font-size: 0.85em;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .mode-timeline .moment-card {
-    border: 2px solid var(--border-color);
-    padding: 0;
+    background: var(--card-bg);
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s;
+}
+
+.mode-timeline .moment-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
 }
 
 .moment-image img {
     width: 100%;
-    border-bottom: 2px solid var(--border-color);
+    display: block;
 }
 
 .moment-body {
-    padding: 30px;
+    padding: 24px;
 }
 
 .moment-mood {
-    font-weight: 800;
-    color: var(--accent-color);
-    margin-bottom: 15px;
+    font-size: 1.1em;
+    margin-bottom: 12px;
     display: block;
 }
 
 .moment-text {
-    font-size: 1.2em;
-    font-weight: 500;
-    line-height: 1.6;
+    font-size: 1.05em;
+    line-height: 1.7;
+    color: var(--text-primary);
+}
+
+.moment-footer {
+    margin-top: 16px;
+    display: flex;
+    gap: 8px;
+}
+
+.moment-tag {
+    font-size: 0.8em;
+    color: var(--accent-color);
+    background: rgba(59, 130, 246, 0.1);
+    padding: 2px 8px;
+    border-radius: 6px;
 }
 
 /* 照片墙模式 */
 .mode-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
 }
 
 .mode-grid .moment-card {
-    border: 2px solid var(--border-color);
+    height: 100%;
+    border-radius: 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
 }
 
 .mode-grid .moment-image {
-    height: 300px;
+    height: 200px;
 }
 
 .mode-grid .moment-image img {
