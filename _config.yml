@@ -1,9 +1,14 @@
 # Jykell configuration
 
-markdown: redcarpet
-# redcarpet
-redcarpet:
-  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "strikethrough", "superscript", "with_toc_data", "footnotes","space_after_headers","highlight","underline","quote","lax_spacing"]
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+  auto_ids: true
+  toc_levels: 1..6
 # Feed!
 
 highlighter: rouge

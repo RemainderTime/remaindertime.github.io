@@ -20,15 +20,38 @@
     <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
     <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/enhancements.css" />
 
     <!-- Ghost outputs important style and meta data with this tag -->
     {% include head.html %}
+    
+    <!-- Theme toggle script (load early to prevent flash) -->
+    <script src="/assets/js/theme-toggle.js"></script>
 
 </head>
 <body class="{% if paginator.page > 1 %}paged archive-template{% elsif page.class %}{{ page.class }}{% else %}home-template{% endif %} nav-closed">
 
+    <!-- Reading progress bar -->
+    <div id="reading-progress"></div>
+    
     <!-- The blog navigation links -->
     {% include navigation.html %}
+    
+    <!-- Search overlay -->
+    <div id="search-overlay">
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="搜索文章... (Ctrl+K)" />
+            <div id="search-results"></div>
+        </div>
+    </div>
+    
+    <!-- Theme toggle button -->
+    <button id="theme-toggle" aria-label="切换主题">
+        <span class="theme-icon">🌙</span>
+    </button>
+    
+    <!-- Back to top button -->
+    <button id="back-to-top" aria-label="返回顶部">↑</button>
 
     <div class="site-wrapper">
 
@@ -55,6 +78,9 @@
     <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
     <!-- The main JavaScript file for Casper -->
     <script type="text/javascript" src="/assets/js/index.js"></script>
+    <!-- Enhanced features -->
+    <script type="text/javascript" src="/assets/js/search.js"></script>
+    <script type="text/javascript" src="/assets/js/enhancements.js"></script>
     <!-- <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js');
