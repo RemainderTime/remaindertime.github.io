@@ -90,7 +90,20 @@
     return excerpt;
   }
 
+  // Open search function
+  function openSearch() {
+    if (searchOverlay) {
+      searchOverlay.classList.add('active');
+      setTimeout(() => searchInput.focus(), 100);
+    }
+  }
+
   // Event listeners
+  const searchBtnTop = document.getElementById('search-btn-top');
+  if (searchBtnTop) {
+    searchBtnTop.addEventListener('click', openSearch);
+  }
+
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       performSearch(e.target.value);
