@@ -32,12 +32,10 @@
   // Update toggle button icon
   function updateToggleButton(theme) {
     const toggleBtn = document.getElementById('theme-toggle');
-    if (toggleBtn) {
-      const icon = toggleBtn.querySelector('.theme-icon');
-      if (icon) {
-        icon.textContent = theme === 'dark' ? '☀️' : '🌙';
-      }
-    }
+    const toggleBtnTop = document.getElementById('theme-toggle-top');
+    const iconText = theme === 'dark' ? '☀️' : '🌙';
+    if (toggleBtn) toggleBtn.textContent = iconText;
+    if (toggleBtnTop) toggleBtnTop.textContent = iconText;
   }
   
   // Toggle theme
@@ -54,9 +52,9 @@
     
     // Add toggle button event listener
     const toggleBtn = document.getElementById('theme-toggle');
-    if (toggleBtn) {
-      toggleBtn.addEventListener('click', toggleTheme);
-    }
+    const toggleBtnTop = document.getElementById('theme-toggle-top');
+    if (toggleBtn) toggleBtn.addEventListener('click', toggleTheme);
+    if (toggleBtnTop) toggleBtnTop.addEventListener('click', toggleTheme);
   });
   
   // Apply theme immediately to prevent flash

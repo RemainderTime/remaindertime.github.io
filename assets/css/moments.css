@@ -1,102 +1,129 @@
-/* 时光轴基础样式 */
+/* 时光轴极致美化版 */
 .moments-controls {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-bottom: 40px;
+    margin: 20px 0 50px 0;
     position: sticky;
-    top: 20px;
+    top: 84px;
     z-index: 100;
+    background: var(--nav-bg);
+    padding: 10px;
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 .mode-btn {
-    padding: 8px 20px;
-    border: 1px solid #ddd;
-    background: var(--bg-color, #fff);
-    color: var(--text-color, #333);
-    border-radius: 20px;
+    padding: 10px 25px;
+    border: none;
+    background: transparent;
+    color: var(--text-secondary);
+    border-radius: 25px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 14px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 15px;
+    font-weight: 500;
 }
 
 .mode-btn:hover {
-    border-color: #3498db;
-    color: #3498db;
+    color: var(--accent-color);
+    background: rgba(52, 152, 219, 0.1);
 }
 
 .mode-btn.active {
-    background: #3498db;
+    background: var(--accent-color);
     color: #fff;
-    border-color: #3498db;
-    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
 }
 
 /* 容器动画 */
 #moments-container {
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    min-height: 400px;
+    transition: all 0.5s ease;
+    perspective: 1000px;
 }
 
 /* --- 时间轴模式 (Timeline) --- */
 .mode-timeline {
     position: relative;
-    padding-left: 30px;
+    padding-left: 50px;
 }
 
 .mode-timeline::before {
     content: '';
     position: absolute;
-    left: 0;
+    left: 20px;
     top: 0;
     bottom: 0;
-    width: 2px;
-    background: #eee;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--accent-color), transparent);
+    border-radius: 3px;
 }
 
 .mode-timeline .moment-item {
     position: relative;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
+    animation: slideIn 0.6s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
 }
 
 .mode-timeline .moment-item::before {
     content: '';
     position: absolute;
-    left: -34px;
-    top: 5px;
-    width: 10px;
-    height: 10px;
+    left: -37px;
+    top: 8px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
-    background: #3498db;
-    border: 2px solid #fff;
+    background: var(--accent-color);
+    border: 4px solid var(--bg-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
     z-index: 1;
 }
 
 .mode-timeline .moment-date {
+    font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    margin-bottom: 10px;
-    color: #999;
-    font-size: 0.9em;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+    font-size: 1.1em;
+    letter-spacing: 1px;
 }
 
 .mode-timeline .moment-card {
-    background: var(--card-bg, #fff);
-    border-radius: 12px;
+    background: var(--card-bg);
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 10px 30px var(--shadow);
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mode-timeline .moment-card:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 15px 40px var(--shadow-hover);
 }
 
 /* --- 照片墙模式 (Grid) --- */
 .mode-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
 }
 
 .mode-grid .moment-item {
-    margin-bottom: 0;
+    animation: zoomIn 0.5s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .mode-grid .moment-date {
@@ -105,105 +132,77 @@
 
 .mode-grid .moment-card {
     height: 100%;
-    display: flex;
-    flex-direction: column;
+    border-radius: 20px;
+    background: var(--card-bg);
+    box-shadow: 0 8px 25px var(--shadow);
+    overflow: hidden;
 }
 
 .mode-grid .moment-image {
-    height: 200px;
-}
-
-.mode-grid .moment-image img {
-    height: 100%;
-    object-fit: cover;
+    height: 250px;
 }
 
 /* --- 列表模式 (List) --- */
 .mode-list .moment-item {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .mode-list .moment-card {
     display: flex;
     align-items: center;
-    padding: 15px;
-    gap: 20px;
+    padding: 20px;
+    gap: 25px;
+    background: var(--card-bg);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px var(--shadow);
 }
 
 .mode-list .moment-image {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     flex-shrink: 0;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
-.mode-list .moment-image img {
-    border-radius: 8px;
-    height: 100%;
-    object-fit: cover;
-}
-
-.mode-list .moment-date {
-    font-size: 0.8em;
-    color: #bbb;
-    margin-bottom: 5px;
-}
-
-/* 通用卡片内部样式 */
-.moment-image img {
-    width: 100%;
-    display: block;
-    transition: transform 0.5s ease;
-}
-
-.moment-card:hover .moment-image img {
-    transform: scale(1.05);
-}
-
+/* 通用内容样式 */
 .moment-body {
-    padding: 20px;
+    padding: 25px;
 }
 
 .moment-mood {
-    font-size: 1.2em;
-    margin-bottom: 10px;
+    display: inline-block;
+    padding: 5px 15px;
+    background: rgba(52, 152, 219, 0.1);
+    border-radius: 15px;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+    color: var(--accent-color);
 }
 
 .moment-text {
-    line-height: 1.6;
-    margin-bottom: 15px;
-    color: var(--text-color, #444);
-}
-
-.moment-footer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    font-size: 1.1em;
+    line-height: 1.8;
+    color: var(--text-color);
+    margin-bottom: 20px;
 }
 
 .moment-tag {
-    font-size: 0.8em;
-    color: #3498db;
-    background: rgba(52, 152, 219, 0.1);
-    padding: 2px 8px;
-    border-radius: 4px;
+    color: var(--text-secondary);
+    font-size: 0.85em;
+    margin-right: 10px;
+    transition: color 0.3s;
 }
 
-/* 深色模式适配 */
-[data-theme="dark"] .mode-btn {
-    background: #2d2d2d;
-    border-color: #444;
-    color: #ccc;
+.moment-tag:hover {
+    color: var(--accent-color);
 }
 
-[data-theme="dark"] .mode-timeline::before {
-    background: #444;
-}
-
-[data-theme="dark"] .moment-card {
-    background: #2d2d2d;
-    border-color: #444;
-}
-
-[data-theme="dark"] .moment-text {
-    color: #ccc;
+/* 响应式适配 */
+@media (max-width: 600px) {
+    .mode-timeline { padding-left: 30px; }
+    .mode-timeline::before { left: 10px; }
+    .mode-timeline .moment-item::before { left: -27px; }
+    .moments-controls { top: 74px; gap: 5px; }
+    .mode-btn { padding: 8px 15px; font-size: 13px; }
 }

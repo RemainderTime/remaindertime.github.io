@@ -1,21 +1,23 @@
-<div class="nav">
-    <h3 class="nav-title">Menu</h3>
-    <a href="#" class="nav-close">
-        <span class="hidden">Close</span>
-    </a>
-    <ul>
-        <li class="nav-home {% if page.current == 'home' %} nav-current{% endif %}" role="presentation"><a href="/">首页</a></li>
-        <li class="nav-moments {% if page.current == 'moments' %} nav-current{% endif %}" role="presentation"><a href="/moments/">时光轴</a></li>
-        <li class="nav-archives {% if page.current == 'archives' %} nav-current{% endif %}" role="presentation"><a href="/archives/">归档</a></li>
-        <li class="nav-subscriptions {% if page.current == 'subscriptions' %} nav-current{% endif %}" role="presentation"><a href="/subscriptions/">我的订阅</a></li>
-        <li class="nav-dns {% if page.current == 'dns' %} nav-current{% endif %}" role="presentation"><a href="/dns/">公共DNS</a></li>
-        <li class="nav-rss {% if page.current == 'rss' %} nav-current{% endif %}" role="presentation"><a href="https://rsshub.moonagic.com">RSSHub</a></li>
-        <li class="nav-twitter {% if page.current == 'twitter' %} nav-current{% endif %}" role="presentation"><a href="https://twitter.com/moonagic">Twitter</a></li>
-        <li class="nav-github {% if page.current == 'github' %} nav-current{% endif %}" role="presentation"><a href="https://github.com/moonagic">Github</a></li>
-        <li class="nav-about {% if page.current == 'about' %} nav-current{% endif %}" role="presentation"><a href="/about/">关于</a></li>
-        <li class="nav-search" role="presentation"><button class="search-btn" onclick="document.getElementById('search-input').focus()" aria-label="搜索">🔍 搜索</button></li>
-
-    </ul>
-    <a class="subscribe-button icon-feed" href="{{ site.baseurl }}feed.xml">Subscribe</a>
-</div>
-<span class="nav-cover"></span>
+<nav class="top-nav">
+    <div class="nav-wrapper">
+        <div class="nav-left">
+            <a class="nav-logo" href="/">
+                <img src="/assets/images/favicon.ico" alt="Logo">
+                <span class="nav-site-name">{{ site.name }}</span>
+            </a>
+        </div>
+        <div class="nav-center">
+            <ul class="nav-links">
+                <li class="{% if page.current == 'home' %}active{% endif %}"><a href="/">首页</a></li>
+                <li class="{% if page.current == 'moments' %}active{% endif %}"><a href="/moments/">时光轴</a></li>
+                <li class="{% if page.current == 'archives' %}active{% endif %}"><a href="/archives/">归档</a></li>
+                <li class="{% if page.current == 'about' %}active{% endif %}"><a href="/about/">关于</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <button class="nav-search-btn" onclick="document.getElementById('search-input').focus()">🔍</button>
+            <button id="theme-toggle-top" class="nav-theme-btn">🌙</button>
+            <a href="#" class="mobile-menu-toggle">☰</a>
+        </div>
+    </div>
+</nav>
