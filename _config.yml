@@ -20,12 +20,12 @@ name: "梦麟繁花"
 description: "Laziness, Impatience and Hubris."
 meta_description: 梦魇的个人博客
 meta_keywords: moonagic, 梦魇, 梦麟繁花, 微梦一生, jekyll, blog, 博客, 独立博客, github
-url: "https://blog.remaindertime.cn"
+url: "https://remaindertime.github.io"
 
 short_url: 'moonagic.com'
 google_analytics: 'UA-74995541-1'
-google_analytics_url: 'http://source.remaindertime.cn/'
-cdn_url: 'http://source.remaindertime.cn/'
+google_analytics_url: '/'
+cdn_url: '/'
 # disqus: username
 # edit baseurl to simply '/' if using as your personal page (instead of a project page)
 baseurl: '/'

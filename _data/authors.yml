@@ -2,7 +2,7 @@ moonagic:
   username: moonagic
   name: 梦魇
   location: ChengDu, China
-  url_full: https://blog.remaindertime.cn/
-  url: blog.remaindertime.cn
+  url_full: https://remaindertime.github.io/
+  url: remaindertime.github.io
   bio: 倔强的在淤泥中生长，从不会低头.
-  assets: images/xf_big.jpg
+  assets: assets/images/favicon.ico
