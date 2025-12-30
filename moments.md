@@ -16,23 +16,27 @@ permalink: /moments/
 <main class="content" role="main">
     <article class="post">
         <header class="post-header">
-            <h1 class="post-title">时光轴</h1>
-            <section class="post-meta">记录生活中的点滴瞬间</section>
+            <h1 class="post-title" style="text-align: center; margin-bottom: 10px;">⏳ 时光轴</h1>
+            <section class="post-meta" style="text-align: center; margin-bottom: 40px;">记录生活中的每一个精彩瞬间</section>
         </header>
 
         <section class="post-content">
             <!-- 模式切换按钮 -->
             <div class="moments-controls">
-                <button class="mode-btn active" data-mode="timeline">⏳ 时间轴</button>
-                <button class="mode-btn" data-mode="grid">🖼️ 照片墙</button>
-                <button class="mode-btn" data-mode="list">📜 列表</button>
+                <button class="mode-btn active" data-mode="timeline"><span>⏳</span> 时间轴</button>
+                <button class="mode-btn" data-mode="grid"><span>🖼️</span> 照片墙</button>
             </div>
 
             <!-- 内容容器 -->
             <div id="moments-container" class="mode-timeline">
                 {% for moment in site.data.moments %}
-                <div class="moment-item" data-tags="{{ moment.tags | join: ',' }}">
-                    <div class="moment-date">{{ moment.date }}</div>
+                <div class="moment-item">
+                    <div class="moment-dot"></div>
+                    <div class="moment-date">{{ moment.date | date: "%Y-%m-%d" }}</div>
+                    
+                    <!-- Date for Grid View -->
+                    <div class="moment-date-card" style="display:none;">{{ moment.date | date: "%Y-%m-%d" }}</div>
+                    
                     <div class="moment-card">
                         {% if moment.image %}
                         <div class="moment-image">
@@ -40,7 +44,9 @@ permalink: /moments/
                         </div>
                         {% endif %}
                         <div class="moment-body">
+                            {% if moment.mood %}
                             <div class="moment-mood">{{ moment.mood }}</div>
+                            {% endif %}
                             <div class="moment-text">{{ moment.content }}</div>
                             <div class="moment-footer">
                                 {% for tag in moment.tags %}
@@ -55,6 +61,51 @@ permalink: /moments/
         </section>
     </article>
 </main>
+
+<!-- Floating Add Button -->
+<button id="add-moment-btn" class="add-moment-btn" title="记录新瞬间">➕</button>
+
+<!-- Add Moment Modal -->
+<div id="moment-modal" class="moment-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>📝 记录新瞬间</h3>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label>此刻的想法...</label>
+                <textarea id="m-content" class="form-textarea" rows="3" placeholder="今天发生了什么有趣的?"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>心情</label>
+                <input type="text" id="m-mood" class="form-input" placeholder="例如: 😊 开心, 🌧️ 忧伤">
+            </div>
+            
+            <div class="form-group">
+                <label>图片 (可选)</label>
+                <div class="file-drop-zone">
+                    <p>📸 点击选择图片</p>
+                    <input type="file" id="m-image" accept="image/*" style="display: none;">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>标签 (用逗号分隔)</label>
+                <input type="text" id="m-tags" class="form-input" placeholder="生活, 摄影, 美食">
+            </div>
+
+            <div id="generated-result" class="generated-code-block">
+                <p style="color: #60a5fa; margin-bottom: 8px; font-weight: bold;">🎉 已生成配置! 请复制下方代码添加到 _data/moments.yml:</p>
+                <code></code>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="close-modal" class="btn-cancel">关闭</button>
+            <button id="generate-btn" class="btn-submit">生成代码</button>
+        </div>
+    </div>
+</div>
 
 <link rel="stylesheet" href="{{ site.baseurl }}assets/css/moments.css">
 <script src="{{ site.baseurl }}assets/js/moments.js"></script>

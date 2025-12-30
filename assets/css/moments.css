@@ -1,127 +1,457 @@
-/* 高级感时光轴样式 */
+/* Global Moments Styles */
+:root {
+    --moment-line-color: #e2e8f0;
+    --moment-dot-color: #3b82f6;
+    --moment-hover-bg: #f8fafc;
+}
+
+[data-theme="dark"] {
+    --moment-line-color: #333;
+    --moment-dot-color: #60a5fa;
+    --moment-hover-bg: #1e293b;
+}
+
 .moments-controls {
     display: flex;
     justify-content: center;
-    gap: 8px;
-    margin-bottom: 40px;
+    gap: 12px;
+    margin-bottom: 48px;
+    padding: 8px;
     background: var(--card-bg);
-    padding: 6px;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
+    border: 1px solid var(--border-color);
 }
 
 .mode-btn {
-    padding: 8px 16px;
+    padding: 10px 20px;
     border: none;
     background: transparent;
     color: var(--text-secondary);
     font-weight: 600;
     cursor: pointer;
-    font-size: 13px;
-    border-radius: 8px;
-    transition: all 0.3s;
+    font-size: 14px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.mode-btn:hover {
+    background: var(--bg-color);
+    color: var(--accent-color);
 }
 
 .mode-btn.active {
     background: var(--accent-color);
-    color: #fff;
+    color: white;
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-/* 时间轴模式 */
-.mode-timeline {
-    max-width: 700px;
-    margin: 0 auto;
+/* Add Moment Button */
+.add-moment-btn {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    /* Next to back-to-top if it's there, maybe adjust */
+    z-index: 990;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    border: none;
+    font-size: 24px;
+    box-shadow: 0 8px 16px rgba(99, 102, 241, 0.4);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.mode-timeline .moment-item {
-    margin-bottom: 48px;
+.add-moment-btn:hover {
+    transform: scale(1.1) rotate(90deg);
+    box-shadow: 0 12px 24px rgba(99, 102, 241, 0.5);
+}
+
+/* Timeline Mode (Enhanced) */
+.mode-timeline {
+    max-width: 800px;
+    padding: 20px;
+    margin: 0 auto;
     position: relative;
 }
 
-.mode-timeline .moment-date {
-    font-size: 0.85em;
-    font-weight: 700;
-    color: var(--text-secondary);
-    margin-bottom: 12px;
-    display: block;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.mode-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: var(--moment-line-color);
+    transform: translateX(-50%);
 }
 
-.mode-timeline .moment-card {
+.mode-timeline .moment-item {
+    margin-bottom: 60px;
+    position: relative;
+    width: 50%;
+    padding: 0 40px;
+}
+
+.mode-timeline .moment-item:nth-child(odd) {
+    left: 0;
+    text-align: right;
+}
+
+.mode-timeline .moment-item:nth-child(even) {
+    left: 50%;
+    text-align: left;
+}
+
+/* Timeline Dots */
+.mode-timeline .moment-dot {
+    position: absolute;
+    top: 24px;
+    width: 16px;
+    height: 16px;
     background: var(--card-bg);
-    border-radius: 20px;
-    border: 1px solid var(--border-color);
+    border: 3px solid var(--moment-dot-color);
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 0 4px var(--bg-color);
+}
+
+.mode-timeline .moment-item:nth-child(odd) .moment-dot {
+    right: -8px;
+}
+
+.mode-timeline .moment-item:nth-child(even) .moment-dot {
+    left: -8px;
+}
+
+.mode-timeline .moment-date {
+    position: absolute;
+    top: 22px;
+    font-size: 0.9em;
+    font-weight: 700;
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+.mode-timeline .moment-item:nth-child(odd) .moment-date {
+    right: -130px;
+    text-align: left;
+    width: 100px;
+}
+
+.mode-timeline .moment-item:nth-child(even) .moment-date {
+    left: -130px;
+    text-align: right;
+    width: 100px;
+}
+
+/* Cards */
+.moment-card {
+    background: var(--card-bg);
+    border-radius: 16px;
     overflow: hidden;
     box-shadow: var(--shadow-sm);
-    transition: all 0.3s;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    text-align: left;
+    /* Reset text align for content */
 }
 
 .mode-timeline .moment-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--accent-color);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.moment-image {
+    cursor: zoom-in;
+    position: relative;
+    overflow: hidden;
 }
 
 .moment-image img {
     width: 100%;
     display: block;
+    transition: transform 0.5s ease;
+}
+
+.moment-image:hover img {
+    transform: scale(1.05);
 }
 
 .moment-body {
-    padding: 24px;
+    padding: 20px;
 }
 
 .moment-mood {
-    font-size: 1.1em;
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--bg-color);
+    border-radius: 20px;
+    font-size: 0.9em;
     margin-bottom: 12px;
-    display: block;
+    color: var(--text-primary);
 }
 
 .moment-text {
     font-size: 1.05em;
-    line-height: 1.7;
+    line-height: 1.6;
     color: var(--text-primary);
+    margin-bottom: 12px;
 }
 
 .moment-footer {
-    margin-top: 16px;
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
 }
 
 .moment-tag {
-    font-size: 0.8em;
+    font-size: 0.85em;
     color: var(--accent-color);
-    background: rgba(59, 130, 246, 0.1);
-    padding: 2px 8px;
-    border-radius: 6px;
+    font-weight: 500;
 }
 
-/* 照片墙模式 */
+/* Grid Mode (Masonry style) */
 .mode-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
+    column-count: 3;
+    column-gap: 24px;
+    padding: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.mode-grid .moment-card {
+.mode-grid .moment-item {
+    break-inside: avoid;
+    margin-bottom: 24px;
+}
+
+.mode-grid .moment-dot,
+.mode-grid .moment-date-label {
+    display: none;
+}
+
+.mode-grid .moment-date-card {
+    display: block;
+    font-size: 0.8em;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .mode-timeline::before {
+        left: 20px;
+    }
+
+    .mode-timeline .moment-item {
+        width: 100%;
+        padding-left: 50px;
+        padding-right: 0;
+        margin-bottom: 40px;
+    }
+
+    .mode-timeline .moment-item:nth-child(odd),
+    .mode-timeline .moment-item:nth-child(even) {
+        left: 0;
+        text-align: left;
+    }
+
+    .mode-timeline .moment-item:nth-child(odd) .moment-dot,
+    .mode-timeline .moment-item:nth-child(even) .moment-dot {
+        left: 12px;
+        right: auto;
+    }
+
+    .mode-timeline .moment-item:nth-child(odd) .moment-date,
+    .mode-timeline .moment-item:nth-child(even) .moment-date {
+        position: static;
+        text-align: left;
+        margin-bottom: 8px;
+        width: auto;
+    }
+
+    .mode-grid {
+        column-count: 1;
+    }
+}
+
+/* Modal Styles */
+.moment-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.moment-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
     background: var(--card-bg);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s;
+}
+
+.moment-modal.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-header h3 {
+    margin: 0 0 24px;
+    font-size: 1.5em;
+    color: var(--text-primary);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 12px;
     border: 1px solid var(--border-color);
-    overflow: hidden;
+    border-radius: 10px;
+    background: var(--bg-color);
+    color: var(--text-primary);
+    font-family: inherit;
+    transition: border-color 0.3s;
 }
 
-.mode-grid .moment-image {
-    height: 200px;
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
 }
 
-.mode-grid .moment-image img {
+.file-drop-zone {
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.file-drop-zone:hover {
+    border-color: var(--accent-color);
+    background: var(--bg-color);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 32px;
+}
+
+.btn-cancel {
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.4);
+}
+
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     height: 100%;
-    object-fit: cover;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+}
+
+.lightbox.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90vh;
+    border-radius: 4px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Styles for Generated Code Block */
+.generated-code-block {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 16px;
+    border-radius: 8px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    margin-top: 16px;
+    display: none;
+    text-align: left;
+    font-size: 0.9em;
+}
+
+.generated-code-block.visible {
+    display: block;
 }

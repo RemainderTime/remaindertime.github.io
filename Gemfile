@@ -25,7 +25,7 @@ group :jekyll_plugins do
   gem "rouge"
   gem "jekyll-paginate"
   gem "jekyll-compose"
-  gem "redcarpet"
+
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

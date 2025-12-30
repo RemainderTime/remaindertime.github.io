@@ -1,21 +1,36 @@
 <section class="comments-section">
     <h3 class="comments-title">💬 评论</h3>
     <div class="giscus-container">
-        <script src="https://giscus.app/client.js"
-                data-repo="RemainderTime/remaindertime.github.io"
-                data-repo-id="YOUR_REPO_ID"
-                data-category="General"
-                data-category-id="YOUR_CATEGORY_ID"
-                data-mapping="pathname"
-                data-strict="0"
-                data-reactions-enabled="1"
-                data-emit-metadata="0"
-                data-input-position="top"
-                data-theme="light"
-                data-lang="zh-CN"
-                data-loading="lazy"
-                crossorigin="anonymous"
-                async>
+        <div id="giscus-warning" style="display: none; padding: 20px; background: #fee2e2; color: #991b1b; border-radius: 8px; text-align: center;">
+            ⚠️ Giscus 评论系统未配置。请在 _includes/giscus.html 中设置正确的 repo-id 和 category-id。
+        </div>
+        <script>
+            (function() {
+                const repoId = "YOUR_REPO_ID";
+                const categoryId = "YOUR_CATEGORY_ID";
+                
+                if (repoId === "YOUR_REPO_ID" || categoryId === "YOUR_CATEGORY_ID") {
+                    document.getElementById('giscus-warning').style.display = 'block';
+                } else {
+                    const script = document.createElement('script');
+                    script.src = "https://giscus.app/client.js";
+                    script.setAttribute('data-repo', "RemainderTime/remaindertime.github.io");
+                    script.setAttribute('data-repo-id', repoId);
+                    script.setAttribute('data-category', "General");
+                    script.setAttribute('data-category-id', categoryId);
+                    script.setAttribute('data-mapping', "pathname");
+                    script.setAttribute('data-strict', "0");
+                    script.setAttribute('data-reactions-enabled', "1");
+                    script.setAttribute('data-emit-metadata', "0");
+                    script.setAttribute('data-input-position', "top");
+                    script.setAttribute('data-theme', "light");
+                    script.setAttribute('data-lang', "zh-CN");
+                    script.setAttribute('data-loading', "lazy");
+                    script.crossOrigin = "anonymous";
+                    script.async = true;
+                    document.querySelector('.giscus-container').appendChild(script);
+                }
+            })();
         </script>
     </div>
 </section>
