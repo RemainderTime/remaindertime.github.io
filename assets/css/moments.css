@@ -56,8 +56,9 @@
 .add-moment-btn {
     position: fixed;
     bottom: 32px;
-    right: 32px;
-    /* Next to back-to-top if it's there, maybe adjust */
+    left: 32px;
+    right: auto;
+    /* Move to left to avoid intersection with back-to-top */
     z-index: 990;
     width: 56px;
     height: 56px;
