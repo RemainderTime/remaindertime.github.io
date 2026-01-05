@@ -107,5 +107,5 @@ permalink: /moments/
     </div>
 </div>
 
-<link rel="stylesheet" href="/assets/css/moments.css">
-<script src="/assets/js/moments.js"></script>
+<link rel="stylesheet" href="/assets/css/moments.css?v={{ site.time | date: '%s' }}">
+<script src="/assets/js/moments.js?v={{ site.time | date: '%s' }}"></script>
