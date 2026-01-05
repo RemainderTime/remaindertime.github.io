@@ -20,6 +20,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Lightbox Logic
+    const createLightbox = () => {
+        const lightbox = document.createElement('div');
+        lightbox.id = 'lightbox';
+        lightbox.className = 'lightbox';
+        lightbox.innerHTML = '<img src="" alt="Full Image">';
+        document.body.appendChild(lightbox);
+
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            setTimeout(() => {
+                lightbox.querySelector('img').src = '';
+            }, 300);
+        });
+
+        return lightbox;
+    };
+
+    const lightbox = document.getElementById('lightbox') || createLightbox();
+    const lightboxImg = lightbox.querySelector('img');
+
+    document.addEventListener('click', (e) => {
+        const imgContainer = e.target.closest('.moment-image');
+        if (imgContainer) {
+            const img = imgContainer.querySelector('img');
+            if (img) {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+            }
+        }
+    });
+
     // Modal Logic
     if (addBtn) {
         addBtn.addEventListener('click', () => {
