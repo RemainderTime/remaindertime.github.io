@@ -1,0 +1,34 @@
+name: Add New Moment
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  add_moment:
+    if: contains(github.event.issue.title, '[Moment]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install PyYAML
+
+      - name: Process Issue
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+        run: python scripts/process_moment.py
+
+      - name: Commit and Push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add _data/moments.yml
+          git commit -m "docs: add new moment from issue #${{ github.event.issue.number }}"
+          git push
