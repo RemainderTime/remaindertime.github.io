@@ -40,7 +40,7 @@ permalink: /moments/
                     <div class="moment-card">
                         {% if moment.image %}
                         <div class="moment-image">
-                            <img src="{{ site.baseurl }}{{ moment.image }}" alt="Moment Image" loading="lazy">
+                            <img src="{{ site.baseurl | append: '/' | append: moment.image | replace: '//', '/' }}" alt="Moment Image" loading="lazy">
                         </div>
                         {% endif %}
                         <div class="moment-body">

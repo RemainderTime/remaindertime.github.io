@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // 处理图片路径
-            let imagePath = 'assets/images/example.jpg';
+            let imagePath = '';
             if (imageInput && imageInput.files && imageInput.files[0]) {
                 // 如果用户选了图片，尝试使用该文件名
                 imagePath = `assets/images/${imageInput.files[0].name}`;

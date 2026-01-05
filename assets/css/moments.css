@@ -243,11 +243,22 @@
     display: none;
 }
 
-.mode-grid .moment-date-card {
+    .mode-grid .moment-date-card {
     display: block;
     font-size: 0.8em;
     color: var(--text-secondary);
     margin-bottom: 8px;
+}
+
+/* Mobile Date Display in Card */
+@media (max-width: 768px) {
+    .mode-timeline .moment-date-card {
+        display: block !important;
+        font-size: 0.85em;
+        color: var(--text-secondary);
+        margin-bottom: 12px;
+        font-weight: 600;
+    }
 }
 
 /* Responsive */
@@ -277,10 +288,7 @@
 
     .mode-timeline .moment-item:nth-child(odd) .moment-date,
     .mode-timeline .moment-item:nth-child(even) .moment-date {
-        position: static;
-        text-align: left;
-        margin-bottom: 8px;
-        width: auto;
+        display: none;
     }
 
     .mode-grid {
