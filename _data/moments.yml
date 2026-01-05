@@ -1,4 +1,10 @@
 - date: '2026-01-05'
+  content: 一轮红日
+  mood: 😊
+  tags:
+  - 风景
+  image: assets/images/xiyang.jpg
+- date: '2026-01-05'
   content: 2026年第一个周一
   mood: 😊
   tags:
