@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxImg = lightbox.querySelector('img');
 
     document.addEventListener('click', (e) => {
+        // Lightbox logic
         const imgContainer = e.target.closest('.moment-image');
         if (imgContainer) {
             const img = imgContainer.querySelector('img');
@@ -49,8 +50,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 lightboxImg.src = img.src;
                 lightbox.classList.add('active');
             }
+            return;
+        }
+
+        // Expand/Collapse logic
+        const expandBtn = e.target.closest('.expand-btn');
+        if (expandBtn) {
+            const container = expandBtn.previousElementSibling;
+            const isExpanded = container.classList.toggle('expanded');
+            expandBtn.innerText = isExpanded ? '收起内容 ↑' : '展开全文 ↓';
         }
     });
+
+    // Initialize Expand Buttons
+    const initExpandButtons = () => {
+        const containers = document.querySelectorAll('.moment-text-container');
+        containers.forEach(container => {
+            // Check if content exceeds 3 lines (approx 4.8em)
+            if (container.scrollHeight > container.offsetHeight) {
+                const btn = document.createElement('button');
+                btn.className = 'expand-btn';
+                btn.innerText = '展开全文 ↓';
+                container.after(btn);
+            }
+        });
+    };
+    initExpandButtons();
 
     // Modal Logic
     if (addBtn) {
