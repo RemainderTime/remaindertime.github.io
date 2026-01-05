@@ -58,7 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (expandBtn) {
             const container = expandBtn.previousElementSibling;
             const isExpanded = container.classList.toggle('expanded');
-            expandBtn.innerText = isExpanded ? '收起内容 ↑' : '展开全文 ↓';
+            expandBtn.innerText = isExpanded ? '收起内容' : '展开全文';
+            
+            // If collapsing, scroll back to card top smoothly
+            if (!isExpanded) {
+                expandBtn.closest('.moment-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
         }
     });
 

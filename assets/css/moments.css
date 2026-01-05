@@ -1,8 +1,10 @@
 /* Global Moments Styles */
 :root {
-    --moment-line-color: #e2e8f0;
-    --moment-dot-color: #3b82f6;
-    --moment-hover-bg: #f8fafc;
+    --moment-line-color: #f1f5f9;
+    --moment-dot-color: #6366f1;
+    --moment-hover-bg: #ffffff;
+    --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+    --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 [data-theme="dark"] {
@@ -94,8 +96,8 @@
     top: 0;
     bottom: 0;
     left: 50%;
-    width: 2px;
-    background: var(--moment-line-color);
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--moment-line-color) 50px, var(--moment-line-color) calc(100% - 50px), transparent);
     transform: translateX(-50%);
 }
 
@@ -119,14 +121,13 @@
 /* Timeline Dots */
 .mode-timeline .moment-dot {
     position: absolute;
-    top: 24px;
-    width: 16px;
-    height: 16px;
-    background: var(--card-bg);
-    border: 3px solid var(--moment-dot-color);
+    top: 32px;
+    width: 10px;
+    height: 10px;
+    background: var(--moment-dot-color);
     border-radius: 50%;
     z-index: 2;
-    box-shadow: 0 0 0 4px var(--bg-color);
+    box-shadow: 0 0 0 4px var(--bg-color), 0 0 10px var(--moment-dot-color);
 }
 
 .mode-timeline .moment-item:nth-child(odd) .moment-dot {
@@ -144,63 +145,82 @@
 /* Cards */
 .moment-card {
     background: var(--card-bg);
-    border-radius: 16px;
+    border-radius: 24px;
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--border-color);
-    transition: all 0.3s ease;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     text-align: left;
-    /* Reset text align for content */
+    position: relative;
 }
 
 .mode-timeline .moment-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-8px); /* 仅向上浮动，不左右移动 */
+    box-shadow: var(--card-shadow-hover);
 }
 
 .moment-header-info {
-    padding: 12px 20px;
+    padding: 16px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--border-color);
-    background: var(--bg-color);
-    opacity: 0.9;
+    background: var(--card-bg);
 }
 
 .moment-date-tag {
-    font-size: 0.85em;
-    font-weight: 700;
-    color: var(--text-secondary);
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
 }
 
 .moment-mood-tag {
-    font-size: 0.85em;
-    padding: 2px 8px;
-    background: var(--card-bg);
-    border-radius: 12px;
-    box-shadow: var(--shadow-sm);
+    font-size: 1.2em;
 }
 
-.moment-image {
-    cursor: zoom-in;
+.moment-image-container {
     position: relative;
+    height: 320px;
     overflow: hidden;
-    height: 280px; /* 稍微增加高度 */
-    background: #f8fafc; /* 浅色背景 */
+    background: #000;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+.moment-image-bg {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px) brightness(0.7);
+    opacity: 0.6;
+    z-index: 1;
+}
+
+.moment-image {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-in;
+}
+
 .moment-image img {
     max-width: 100%;
     max-height: 100%;
-    width: auto;
-    height: auto;
-    display: block;
-    object-fit: contain; /* 完整显示图片 */
-    transition: transform 0.6s cubic-bezier(0.33, 1, 0.68, 1);
+    object-fit: contain;
+    transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.moment-card:hover .moment-image img {
+    transform: scale(1.05);
 }
 
 .moment-card:hover .moment-image img {
@@ -214,38 +234,38 @@
 }
 
 .moment-body {
-    padding: 16px 20px;
+    padding: 24px;
 }
 
 .moment-text-container {
     position: relative;
-    max-height: 4.8em; /* 约 3 行文字高度 */
+    max-height: 5em;
     overflow: hidden;
-    transition: max-height 0.5s ease;
+    transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .moment-text-container.expanded {
-    max-height: 1000px; /* 展开后的高度 */
+    max-height: 2000px;
 }
 
 .moment-text {
-    font-size: 1.05em;
-    line-height: 1.6;
+    font-size: 1.1em;
+    line-height: 1.8;
     color: var(--text-primary);
+    font-weight: 400;
 }
 
 .expand-btn {
-    display: block;
-    width: 100%;
-    padding: 8px 0;
-    margin-top: 8px;
-    background: transparent;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-top: 12px;
+    background: var(--bg-color);
+    border-radius: 8px;
     border: none;
     color: var(--accent-color);
-    font-size: 0.9em;
+    font-size: 0.85em;
     font-weight: 600;
     cursor: pointer;
-    text-align: center;
     transition: all 0.3s;
 }
 
@@ -333,6 +353,18 @@
     .mode-timeline .moment-item:nth-child(odd) .moment-date,
     .mode-timeline .moment-item:nth-child(even) .moment-date {
         display: none !important;
+    }
+
+    .moment-image-container {
+        height: 240px;
+    }
+
+    .moment-card {
+        border-radius: 20px;
+    }
+
+    .moment-body {
+        padding: 20px;
     }
 
     .mode-grid {

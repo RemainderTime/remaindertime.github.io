@@ -41,8 +41,11 @@ permalink: /moments/
                         </div>
 
                         {% if moment.image %}
-                        <div class="moment-image">
-                            <img src="{{ site.baseurl | append: '/' | append: moment.image | replace: '//', '/' }}" alt="Moment Image" loading="lazy">
+                        <div class="moment-image-container">
+                            <div class="moment-image-bg" style="background-image: url('{{ site.baseurl | append: '/' | append: moment.image | replace: '//', '/' }}');"></div>
+                            <div class="moment-image">
+                                <img src="{{ site.baseurl | append: '/' | append: moment.image | replace: '//', '/' }}" alt="Moment Image" loading="lazy">
+                            </div>
                         </div>
                         {% endif %}
                         
