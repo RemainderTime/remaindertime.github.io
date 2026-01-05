@@ -70,6 +70,7 @@ permalink: /moments/
     <div class="modal-content">
         <div class="modal-header">
             <h3>📝 记录新瞬间</h3>
+            <p style="font-size: 0.8em; color: #666; margin-top: 5px;">推荐使用 <a href="https://github.com/RemainderTime/remaindertime.github.io/issues/new?template=new_moment.md" target="_blank" style="color: #60a5fa; text-decoration: underline;">GitHub Issue 自动化发布</a>，无需手动复制代码。</p>
         </div>
         <div class="modal-body">
             <div class="form-group">
@@ -95,9 +96,8 @@ permalink: /moments/
                 <input type="text" id="m-tags" class="form-input" placeholder="生活, 摄影, 美食">
             </div>
 
-            <div id="generated-result" class="generated-code-block">
-                <p style="color: #60a5fa; margin-bottom: 8px; font-weight: bold;">🎉 已生成配置! 请复制下方代码添加到 _data/moments.yml:</p>
-                <code></code>
+            <div id="generated-result" class="generated-code-block" style="background: #f8fafc; border: 1px dashed #cbd5e1; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                <p style="color: #475569; margin-bottom: 0; font-size: 0.9em;">💡 点击下方按钮后，将自动跳转到 GitHub 提交页面。您只需点击 <b>"Submit new issue"</b> 即可完成发布，无需手动修改代码。</p>
             </div>
         </div>
         <div class="modal-footer">
