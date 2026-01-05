@@ -28,6 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Image Upload Interaction
+    const fileDropZone = document.querySelector('.file-drop-zone');
+    const imageInput = document.getElementById('m-image');
+    if (fileDropZone && imageInput) {
+        fileDropZone.addEventListener('click', () => imageInput.click());
+        imageInput.addEventListener('change', () => {
+            if (imageInput.files && imageInput.files[0]) {
+                fileDropZone.querySelector('p').innerText = `📸 已选择: ${imageInput.files[0].name}`;
+            }
+        });
+    }
+
     const closeModal = () => {
         modal.classList.remove('active');
         document.body.style.overflow = '';
@@ -54,8 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            // 处理图片路径
+            let imagePath = 'assets/images/example.jpg';
+            if (imageInput && imageInput.files && imageInput.files[0]) {
+                // 如果用户选了图片，尝试使用该文件名
+                imagePath = `assets/images/${imageInput.files[0].name}`;
+            }
+
             // 构建 Issue 内容体
-            const issueBody = `### 心情\n${mood || '😊'}\n\n### 标签\n${tags || '生活'}\n\n### 内容\n${content}\n\n### 图片\nassets/images/example.jpg`;
+            const issueBody = `### 心情\n${mood || '😊'}\n\n### 标签\n${tags || '生活'}\n\n### 内容\n${content}\n\n### 图片\n${imagePath}`;
             
             // 构建 GitHub New Issue URL
             // 替换为你的仓库地址
