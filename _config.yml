@@ -39,7 +39,7 @@ permalink: /:title/
 # permalink: /tag/:tag
 
 # gems and other configs
-plugins: [jekyll-paginate, rouge, jekyll-sitemap]
+plugins: [jekyll-paginate, jekyll-sitemap]
 
 # mermaid
 mermaid:
