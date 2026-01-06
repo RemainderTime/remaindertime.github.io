@@ -29,7 +29,13 @@ permalink: /moments/
 
             <!-- 内容容器 -->
             <div id="moments-container" class="mode-timeline">
-                {% for moment in site.data.moments %}
+                {% assign all_moments = "" | split: "" %}
+                {% for file in site.data.moments %}
+                    {% assign all_moments = all_moments | concat: file[1] %}
+                {% endfor %}
+                {% assign sorted_moments = all_moments | sort: "date" | reverse %}
+
+                {% for moment in sorted_moments %}
                 <div class="moment-item">
                     <div class="moment-dot"></div>
                     <div class="moment-card">

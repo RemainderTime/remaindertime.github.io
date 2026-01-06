@@ -95,26 +95,22 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 50%;
+    left: 20px; /* 线条移至左侧 */
     width: 1px;
     background: linear-gradient(to bottom, transparent, var(--moment-line-color) 50px, var(--moment-line-color) calc(100% - 50px), transparent);
-    transform: translateX(-50%);
 }
 
 .mode-timeline .moment-item {
-    margin-bottom: 60px;
+    margin-bottom: 48px;
     position: relative;
-    width: 50%;
-    padding: 0 40px;
+    width: 100%; /* 宽度占满 */
+    padding-left: 50px; /* 为左侧线条留出空间 */
+    padding-right: 0;
 }
 
-.mode-timeline .moment-item:nth-child(odd) {
-    left: 0;
-    text-align: right;
-}
-
+.mode-timeline .moment-item:nth-child(odd),
 .mode-timeline .moment-item:nth-child(even) {
-    left: 50%;
+    left: 0;
     text-align: left;
 }
 
@@ -122,20 +118,13 @@
 .mode-timeline .moment-dot {
     position: absolute;
     top: 32px;
+    left: 15px; /* 圆点对齐线条 */
     width: 10px;
     height: 10px;
     background: var(--moment-dot-color);
     border-radius: 50%;
     z-index: 2;
     box-shadow: 0 0 0 4px var(--bg-color), 0 0 10px var(--moment-dot-color);
-}
-
-.mode-timeline .moment-item:nth-child(odd) .moment-dot {
-    right: -8px;
-}
-
-.mode-timeline .moment-item:nth-child(even) .moment-dot {
-    left: -8px;
 }
 
 .mode-timeline .moment-date {
