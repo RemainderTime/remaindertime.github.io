@@ -22,7 +22,7 @@ meta_description: 梦魇的个人博客
 meta_keywords: moonagic, 梦魇, 梦麟繁花, 微梦一生, jekyll, blog, 博客, 独立博客, github
 url: "https://remaindertime.github.io"
 
-short_url: 'moonagic.com'
+# short_url: 'moonagic.com'
 google_analytics: 'UA-74995541-1'
 google_analytics_url: '/'
 cdn_url: '/'
@@ -39,11 +39,31 @@ permalink: /:title/
 # permalink: /tag/:tag
 
 # gems and other configs
-plugins: [jekyll-paginate, jekyll-sitemap]
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-gist
 
 # mermaid configuration removed to avoid build errors
 
 excerpt_separator:  '<!-- more -->'
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - .travis.yml
+  - Rakefile
+  - scripts/
+  - README.md
+  - LICENSE.txt
+  - BLOG_FIXES.md
+  - GISCUS_SETUP.md
+  - OPTIMIZATION_SUMMARY.md
 
 # Additional settings available on the front-matter
 # Site logo in the index.html (as in demo.ghost.io)
