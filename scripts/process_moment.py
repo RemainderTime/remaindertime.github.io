@@ -40,8 +40,12 @@ def process_issue():
     if not content:
         content = issue_title.replace('[Moment]', '').strip()
 
+    now = datetime.now()
+    date_str = now.strftime('%Y-%m-%d')
+    month_str = now.strftime('%Y-%m')
+    
     new_moment = {
-        'date': datetime.now().strftime('%Y-%m-%d'),
+        'date': date_str,
         'content': content,
         'mood': mood,
         'tags': tags
@@ -50,16 +54,19 @@ def process_issue():
     if image and image != "assets/images/example.jpg":
         new_moment['image'] = image
 
-    yaml_path = '_data/moments.yml'
+    # Use monthly file structure
+    yaml_dir = '_data/moments'
+    yaml_path = os.path.join(yaml_dir, f'{month_str}.yml')
+    
+    os.makedirs(yaml_dir, exist_ok=True)
+    
+    moments = []
     if os.path.exists(yaml_path):
         with open(yaml_path, 'r', encoding='utf-8') as f:
             moments = yaml.safe_load(f) or []
-    else:
-        moments = []
-
+    
     moments.insert(0, new_moment)
 
-    os.makedirs(os.path.dirname(yaml_path), exist_ok=True)
     with open(yaml_path, 'w', encoding='utf-8') as f:
         yaml.dump(moments, f, allow_unicode=True, sort_keys=False, default_flow_style=False)
 
