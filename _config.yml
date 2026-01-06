@@ -13,6 +13,7 @@ kramdown:
 
 highlighter: rouge
 paginate: 10
+theme: minima
 language: 'en-us'
 
 # Website info
