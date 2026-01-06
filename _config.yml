@@ -41,9 +41,7 @@ permalink: /:title/
 # gems and other configs
 plugins: [jekyll-paginate, jekyll-sitemap]
 
-# mermaid
-mermaid:
-  src: '/assets/js/mermaid.min.js'
+# mermaid configuration removed to avoid build errors
 
 excerpt_separator:  '<!-- more -->'
 
