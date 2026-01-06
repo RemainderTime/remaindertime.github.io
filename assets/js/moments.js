@@ -14,9 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.add('active');
             container.className = `mode-${mode}`;
             
-            // Toggle date visibility for grid mode
-            const gridDates = document.querySelectorAll('.moment-date-card');
-            gridDates.forEach(d => d.style.display = mode === 'grid' ? 'block' : 'none');
+            // Re-initialize expand buttons if needed
+            initExpandButtons();
         });
     });
 
@@ -56,11 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Expand/Collapse logic
         const expandBtn = e.target.closest('.expand-btn');
         if (expandBtn) {
-            const container = expandBtn.previousElementSibling;
-            const isExpanded = container.classList.toggle('expanded');
-            expandBtn.innerText = isExpanded ? '收起内容' : '展开全文';
+            const textContainer = expandBtn.previousElementSibling;
+            const isExpanded = textContainer.classList.toggle('expanded');
+            expandBtn.innerText = isExpanded ? '收起内容 ↑' : '展开全文 ↓';
             
-            // If collapsing, scroll back to card top smoothly
             if (!isExpanded) {
                 expandBtn.closest('.moment-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
@@ -69,14 +67,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Expand Buttons
     const initExpandButtons = () => {
+        // Remove existing buttons first to avoid duplicates
+        document.querySelectorAll('.expand-btn').forEach(b => b.remove());
+        
         const containers = document.querySelectorAll('.moment-text-container');
         containers.forEach(container => {
-            // Check if content exceeds 3 lines (approx 4.8em)
-            if (container.scrollHeight > container.offsetHeight) {
+            // Only add if content is long enough
+            // Using a temporary style to check height
+            const originalStyle = container.style.maxHeight;
+            container.style.maxHeight = 'none';
+            const fullHeight = container.scrollHeight;
+            container.style.maxHeight = originalStyle;
+            
+            if (fullHeight > 120) { // Approx 5-6 lines
                 const btn = document.createElement('button');
                 btn.className = 'expand-btn';
+                btn.style.cssText = "display: block; width: 100%; padding: 8px; margin-top: 8px; background: none; border: 1px dashed var(--border-color); border-radius: 8px; color: var(--accent-color); cursor: pointer; font-size: 0.8rem;";
                 btn.innerText = '展开全文 ↓';
                 container.after(btn);
+                container.style.maxHeight = '100px';
+                container.style.overflow = 'hidden';
             }
         });
     };
@@ -87,18 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
         addBtn.addEventListener('click', () => {
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-        });
-    }
-
-    // Image Upload Interaction
-    const fileDropZone = document.querySelector('.file-drop-zone');
-    const imageInput = document.getElementById('m-image');
-    if (fileDropZone && imageInput) {
-        fileDropZone.addEventListener('click', () => imageInput.click());
-        imageInput.addEventListener('change', () => {
-            if (imageInput.files && imageInput.files[0]) {
-                fileDropZone.querySelector('p').innerText = `📸 已选择: ${imageInput.files[0].name}`;
-            }
         });
     }
 
@@ -114,9 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // One-click Publish to GitHub
+    // One-click Publish
     if (generateBtn) {
-        generateBtn.innerText = "🚀 一键发布到时光轴";
         generateBtn.addEventListener('click', () => {
             const content = document.getElementById('m-content').value;
             const mood = document.getElementById('m-mood').value;
@@ -128,29 +125,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // 处理图片路径
             let imagePath = '';
             if (imageInput && imageInput.files && imageInput.files[0]) {
-                // 如果用户选了图片，尝试使用该文件名
                 imagePath = `assets/images/${imageInput.files[0].name}`;
             }
 
-            // 构建 Issue 内容体
             const issueBody = `### 心情\n${mood || '😊'}\n\n### 标签\n${tags || '生活'}\n\n### 内容\n${content}\n\n### 图片\n${imagePath}`;
-            
-            // 构建 GitHub New Issue URL
-            // 替换为你的仓库地址
             const repoUrl = "https://github.com/RemainderTime/remaindertime.github.io";
             const templateName = "new_moment.md";
             const title = encodeURIComponent(`[Moment] ${content.substring(0, 20)}...`);
             const body = encodeURIComponent(issueBody);
             
             const publishUrl = `${repoUrl}/issues/new?template=${templateName}&title=${title}&body=${body}`;
-            
-            // 打开新窗口跳转
             window.open(publishUrl, '_blank');
-            
-            // 关闭弹窗
             closeModal();
         });
     }
