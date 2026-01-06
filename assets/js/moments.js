@@ -20,6 +20,68 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Lightbox Logic
+    const createLightbox = () => {
+        const lightbox = document.createElement('div');
+        lightbox.id = 'lightbox';
+        lightbox.className = 'lightbox';
+        lightbox.innerHTML = '<img src="" alt="Full Image">';
+        document.body.appendChild(lightbox);
+
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            setTimeout(() => {
+                lightbox.querySelector('img').src = '';
+            }, 300);
+        });
+
+        return lightbox;
+    };
+
+    const lightbox = document.getElementById('lightbox') || createLightbox();
+    const lightboxImg = lightbox.querySelector('img');
+
+    document.addEventListener('click', (e) => {
+        // Lightbox logic
+        const imgContainer = e.target.closest('.moment-image');
+        if (imgContainer) {
+            const img = imgContainer.querySelector('img');
+            if (img) {
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+            }
+            return;
+        }
+
+        // Expand/Collapse logic
+        const expandBtn = e.target.closest('.expand-btn');
+        if (expandBtn) {
+            const container = expandBtn.previousElementSibling;
+            const isExpanded = container.classList.toggle('expanded');
+            expandBtn.innerText = isExpanded ? '收起内容' : '展开全文';
+            
+            // If collapsing, scroll back to card top smoothly
+            if (!isExpanded) {
+                expandBtn.closest('.moment-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+    });
+
+    // Initialize Expand Buttons
+    const initExpandButtons = () => {
+        const containers = document.querySelectorAll('.moment-text-container');
+        containers.forEach(container => {
+            // Check if content exceeds 3 lines (approx 4.8em)
+            if (container.scrollHeight > container.offsetHeight) {
+                const btn = document.createElement('button');
+                btn.className = 'expand-btn';
+                btn.innerText = '展开全文 ↓';
+                container.after(btn);
+            }
+        });
+    };
+    initExpandButtons();
+
     // Modal Logic
     if (addBtn) {
         addBtn.addEventListener('click', () => {
@@ -67,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // 处理图片路径
-            let imagePath = 'assets/images/example.jpg';
+            let imagePath = '';
             if (imageInput && imageInput.files && imageInput.files[0]) {
                 // 如果用户选了图片，尝试使用该文件名
                 imagePath = `assets/images/${imageInput.files[0].name}`;

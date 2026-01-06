@@ -29,29 +29,42 @@ permalink: /moments/
 
             <!-- 内容容器 -->
             <div id="moments-container" class="mode-timeline">
-                {% for moment in site.data.moments %}
+                {% assign all_moments = "" | split: "" %}
+                {% for file in site.data.moments %}
+                    {% assign all_moments = all_moments | concat: file[1] %}
+                {% endfor %}
+                {% assign sorted_moments = all_moments | sort: "date" | reverse %}
+
+                {% for moment in sorted_moments %}
                 <div class="moment-item">
                     <div class="moment-dot"></div>
-                    <div class="moment-date">{{ moment.date | date: "%Y-%m-%d" }}</div>
-                    
-                    <!-- Date for Grid View -->
-                    <div class="moment-date-card" style="display:none;">{{ moment.date | date: "%Y-%m-%d" }}</div>
-                    
                     <div class="moment-card">
+                        <div class="moment-header-info">
+                            <span class="moment-date-tag">{{ moment.date | date: "%Y-%m-%d" }}</span>
+                            {% if moment.mood %}
+                            <span class="moment-mood-tag">{{ moment.mood }}</span>
+                            {% endif %}
+                        </div>
+
                         {% if moment.image %}
-                        <div class="moment-image">
-                            <img src="{{ site.baseurl }}{{ moment.image }}" alt="Moment Image" loading="lazy">
+                        <div class="moment-image-container">
+                            <div class="moment-image-bg" style="background-image: url('{{ site.baseurl | append: '/' | append: moment.image | replace: '//', '/' }}');"></div>
+                            <div class="moment-image">
+                                <img src="{{ site.baseurl | append: '/' | append: moment.image | replace: '//', '/' }}" alt="Moment Image" loading="lazy">
+                            </div>
                         </div>
                         {% endif %}
+                        
                         <div class="moment-body">
-                            {% if moment.mood %}
-                            <div class="moment-mood">{{ moment.mood }}</div>
-                            {% endif %}
-                            <div class="moment-text">{{ moment.content }}</div>
+                            <div class="moment-text-container">
+                                <div class="moment-text">{{ moment.content }}</div>
+                            </div>
                             <div class="moment-footer">
-                                {% for tag in moment.tags %}
-                                <span class="moment-tag">#{{ tag }}</span>
-                                {% endfor %}
+                                <div class="moment-tags">
+                                    {% for tag in moment.tags %}
+                                    <span class="moment-tag">#{{ tag }}</span>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -107,5 +120,5 @@ permalink: /moments/
     </div>
 </div>
 
-<link rel="stylesheet" href="/assets/css/moments.css">
-<script src="/assets/js/moments.js"></script>
+<link rel="stylesheet" href="/assets/css/moments.css?v={{ site.time | date: '%s' }}">
+<script src="/assets/js/moments.js?v={{ site.time | date: '%s' }}"></script>
