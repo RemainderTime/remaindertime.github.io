@@ -559,10 +559,23 @@
     border: 1px solid var(--moments-border);
     border-radius: 10px;
     background: var(--moments-bg);
-    color: var(--moments-text);
+    color: #333 !important;
+    /* Force dark text initially */
     font-family: inherit;
     font-size: 1rem;
+    line-height: 1.5;
     transition: border-color 0.2s;
+    opacity: 1;
+    /* Ensure not hidden */
+}
+
+/* Dark mode override */
+[data-theme="dark"] .form-input,
+[data-theme="dark"] .form-textarea,
+[data-theme="dark"] .form-select {
+    color: #f1f5f9 !important;
+    /* Force light text in dark mode */
+    background: #1e293b;
 }
 
 .form-select {
