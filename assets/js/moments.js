@@ -1,7 +1,74 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Render Logic (New) ---
+    const rawDataScript = document.getElementById('moments-data');
+    let momentsData = [];
+    try {
+        momentsData = JSON.parse(rawDataScript.textContent);
+    } catch (e) {
+        console.error("Failed to parse moments data", e);
+    }
+
+    // Sort by date desc
+    momentsData.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    const wrapper = document.getElementById('moments-wrapper');
+    wrapper.innerHTML = ''; // Clear loading state
+
+    if (momentsData.length === 0) {
+        wrapper.innerHTML = `
+            <div class="empty-state" style="text-align:center; padding:50px;">
+                <div class="empty-icon" style="font-size:48px;">🌱</div>
+                <h3>暂无动态</h3>
+                <p>点击右下角的按钮，记录你的第一个瞬间吧！</p>
+            </div>`;
+    } else {
+        momentsData.forEach(moment => {
+            const dateObj = new Date(moment.date);
+            const dateStr = isNaN(dateObj.getTime()) ? moment.date : dateObj.toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.');
+
+            let imagesHtml = '';
+            if (moment.image && moment.image !== 'null') {
+                imagesHtml += `<div class="moment-media"><img src="${moment.image}" loading="lazy" onclick="window.openLightbox(this.src)"></div>`;
+            }
+            if (moment.images && Array.isArray(moment.images)) {
+                imagesHtml += `<div class="moment-gallery">
+                    ${moment.images.map(img => `<div class="gallery-item"><img src="${img}" loading="lazy" onclick="window.openLightbox(this.src)"></div>`).join('')}
+                </div>`;
+            }
+
+            let tagsHtml = '';
+            if (moment.tags && Array.isArray(moment.tags)) {
+                tagsHtml = `<div class="moment-footer"><div class="moment-tags">${moment.tags.map(t => `<span class="tag">#${t}</span>`).join('')}</div></div>`;
+            }
+
+            const card = document.createElement('article');
+            card.className = 'moment-card visible'; // Directly visible for now, animation handled by observer
+            card.innerHTML = `
+                <div class="moment-marker">
+                    <div class="marker-dot"></div>
+                    <div class="marker-line"></div>
+                </div>
+                <div class="moment-content-wrapper">
+                    <div class="moment-meta">
+                        <span class="moment-date">${dateStr}</span>
+                        ${moment.weather && moment.weather !== 'null' ? `<span class="moment-weather">${moment.weather}</span>` : ''}
+                        ${moment.mood && moment.mood !== 'null' ? `<span class="moment-mood">${moment.mood}</span>` : ''}
+                    </div>
+                    <div class="moment-body">
+                        ${moment.content && moment.content !== 'null' ? `<p class="moment-text">${moment.content}</p>` : ''}
+                        ${imagesHtml}
+                    </div>
+                    ${tagsHtml}
+                </div>
+            `;
+            wrapper.appendChild(card);
+        });
+    }
+
+
     // --- View Toggle Logic ---
-    const container = document.getElementById('moments-wrapper');
     const btns = document.querySelectorAll('.control-btn');
+    const container = wrapper; // wrapper is the grid/timeline container
 
     btns.forEach(btn => {
         btn.addEventListener('click', () => {

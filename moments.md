@@ -32,84 +32,35 @@ permalink: /moments/
 
     <!-- Main Content -->
     <main class="moments-wrapper view-timeline" id="moments-wrapper">
-        <!-- Liquid Logic to Aggregate Data -->
-        {% assign all_moments = site.static_files | where: "false", "true" %}
-        
-        {% if site.data.moments %}
-            {% for collection in site.data.moments %}
-                {% assign items = collection[1] %}
-                {% if items.first %}
-                    {% for item in items %}
-                        {% assign all_moments = all_moments | push: item %}
-                    {% endfor %}
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-
-        {% assign sorted_moments = all_moments | sort: "date" | reverse %}
-
-        {% if sorted_moments.size == 0 %}
-            <div class="empty-state">
-                <div class="empty-icon">🌱</div>
-                <h3>暂无动态</h3>
-                <p>点击右下角的按钮，记录你的第一个瞬间吧！</p>
-            </div>
-        {% else %}
-            {% for moment in sorted_moments %}
-                <article class="moment-card" data-date="{{ moment.date | date: '%Y-%m-%d' }}">
-                    <div class="moment-marker">
-                        <div class="marker-dot"></div>
-                        <div class="marker-line"></div>
-                    </div>
-                    
-                    <div class="moment-content-wrapper">
-                        <div class="moment-meta">
-                            <span class="moment-date">{{ moment.date | date: "%Y.%m.%d" }}</span>
-                            {% if moment.weather %}
-                            <span class="moment-weather" title="{{ moment.weather }}">{{ moment.weather }}</span>
-                            {% endif %}
-                            {% if moment.mood %}
-                            <span class="moment-mood" title="{{ moment.mood }}">{{ moment.mood }}</span>
-                            {% endif %}
-                        </div>
-
-                        <div class="moment-body">
-                            {% if moment.content %}
-                            <p class="moment-text">{{ moment.content }}</p>
-                            {% endif %}
-
-                            {% if moment.image %}
-                            <div class="moment-media">
-                                <img src="{{ moment.image }}" alt="Moment Image" loading="lazy" onclick="openLightbox(this.src)">
-                            </div>
-                            {% endif %}
-                            
-                            {% if moment.images %}
-                            <div class="moment-gallery">
-                                {% for img in moment.images %}
-                                <div class="gallery-item">
-                                    <img src="{{ img }}" alt="Gallery Image" loading="lazy" onclick="openLightbox(this.src)">
-                                </div>
-                                {% endfor %}
-                            </div>
-                            {% endif %}
-                        </div>
-
-                        {% if moment.tags %}
-                        <div class="moment-footer">
-                            <div class="moment-tags">
-                                {% for tag in moment.tags %}
-                                <span class="tag">#{{ tag }}</span>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        {% endif %}
-                    </div>
-                </article>
-            {% endfor %}
-        {% endif %}
+        <div id="loading-state" style="text-align: center; padding: 40px; color: var(--moments-text-light);">
+            Loading moments...
+        </div>
     </main>
 </div>
+
+<!-- Data Injection -->
+<script id="moments-data" type="application/json">
+[
+{% if site.data.moments %}
+    {% for collection in site.data.moments %}
+        {% assign items = collection[1] %}
+        {% if items.first %}
+            {% for item in items %}
+                {
+                    "date": "{{ item.date }}",
+                    "content": {{ item.content | jsonify }},
+                    "mood": "{{ item.mood }}",
+                    "weather": "{{ item.weather }}",
+                    "image": "{{ item.image }}",
+                    "images": {{ item.images | jsonify }},
+                    "tags": {{ item.tags | jsonify }}
+                }{% unless forloop.last and forloop.parentloop.last %},{% endunless %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+]
+</script>
 
 <!-- Add Moment Floating Button -->
 <button class="add-moment-fab" id="add-moment-btn" title="记录瞬间">
