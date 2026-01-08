@@ -118,8 +118,8 @@ permalink: /moments/
                 </div>
             </div>
             <div class="form-group">
-                <label>图片 URL (可选)</label>
-                <input type="text" id="m-image" class="form-input" placeholder="https://...">
+                <label>图片 (单张或多张，逗号分隔)</label>
+                <input type="text" id="m-image" class="form-input" placeholder="xiyang.jpg, photo2.jpg">
             </div>
             <div class="form-group">
                 <label>标签 (逗号分隔)</label>

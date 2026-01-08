@@ -30,6 +30,8 @@
 /* --- Header --- */
 .moments-header {
     text-align: center;
+    margin-top: 80px;
+    /* Added spacing to clear fixed nav */
     margin-bottom: 60px;
     position: relative;
     padding-bottom: 30px;
@@ -323,6 +325,18 @@
 .moment-meta {
     font-size: 1rem;
     /* Increased from 0.9rem */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.moment-weather,
+.moment-mood {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
 }
 
 /* Fix Broken Images & Premium Image Styling */

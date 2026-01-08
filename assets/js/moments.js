@@ -69,7 +69,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const card = document.createElement('article');
-            card.className = 'moment-card visible'; // Directly visible for now, animation handled by observer
+            card.className = 'moment-card visible';
+
+            // Build Meta HTML
+            let metaHtml = `<span class="moment-date">${dateStr}</span>`;
+
+            // Render Weather/Mood only if valid text (not "null", not empty)
+            if (moment.weather && moment.weather !== 'null' && moment.weather.trim() !== '') {
+                metaHtml += `<span class="moment-weather">${moment.weather}</span>`;
+            }
+            if (moment.mood && moment.mood !== 'null' && moment.mood.trim() !== '') {
+                metaHtml += `<span class="moment-mood">${moment.mood}</span>`;
+            }
+
             card.innerHTML = `
                 <div class="moment-marker">
                     <div class="marker-dot"></div>
@@ -77,9 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="moment-content-wrapper">
                     <div class="moment-meta">
-                        <span class="moment-date">${dateStr}</span>
-                        ${moment.weather && moment.weather !== 'null' ? `<span class="moment-weather">${moment.weather}</span>` : ''}
-                        ${moment.mood && moment.mood !== 'null' ? `<span class="moment-mood">${moment.mood}</span>` : ''}
+                        ${metaHtml}
                     </div>
                     <div class="moment-body">
                         ${moment.content && moment.content !== 'null' ? `<p class="moment-text">${moment.content}</p>` : ''}
@@ -190,9 +200,23 @@ document.addEventListener('DOMContentLoaded', () => {
         // Generate YAML
         let yaml = `- date: ${dateStr}\n`;
         if (content) yaml += `  content: "${content.replace(/"/g, '\\"')}"\n`;
-        if (mood) yaml += `  mood: ${mood}\n`;
-        if (weather) yaml += `  weather: ${weather}\n`;
-        if (img) yaml += `  image: ${img}\n`;
+        if (mood) yaml += `  mood: "${mood}"\n`; // Quote strings
+        if (weather) yaml += `  weather: "${weather}"\n`; // Quote strings
+
+        // Image Logic
+        const imgInput = document.getElementById('m-image').value.trim();
+        if (imgInput) {
+            // Split by comma or newline to handle multiple images
+            const imgs = imgInput.split(/[,，\n]/).map(s => s.trim()).filter(s => s);
+            if (imgs.length === 1) {
+                yaml += `  image: ${imgs[0]}\n`;
+            } else if (imgs.length > 1) {
+                yaml += `  images:\n`;
+                imgs.forEach(url => {
+                    yaml += `  - ${url}\n`;
+                });
+            }
+        }
 
         if (tags) {
             const tagArray = tags.split(/[,，]/).map(t => t.trim()).filter(t => t);
