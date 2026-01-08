@@ -33,7 +33,7 @@ permalink: /moments/
     <!-- Main Content -->
     <main class="moments-wrapper view-timeline" id="moments-wrapper">
         <!-- Liquid Logic to Aggregate Data -->
-        {% assign all_moments = "" | split: "" %}
+        {% assign all_moments = site.static_files | where: "false", "true" %}
         
         {% if site.data.moments %}
             {% for collection in site.data.moments %}
