@@ -573,6 +573,23 @@
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 16px;
+    padding-right: 35px;
+    /* Space for arrow */
+    color: var(--moments-text) !important;
+    /* Force visible text color */
+    background-color: var(--moments-card-bg);
+    /* Ensure opaque background */
+}
+
+.form-select option {
+    color: #1e293b;
+    /* Fallback for options */
+    background: #fff;
+}
+
+[data-theme="dark"] .form-select option {
+    color: #f1f5f9;
+    background: #1e293b;
 }
 
 .form-textarea {
