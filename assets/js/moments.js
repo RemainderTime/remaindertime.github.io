@@ -14,6 +14,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrapper = document.getElementById('moments-wrapper');
     wrapper.innerHTML = ''; // Clear loading state
 
+    // Base URL handling
+    const baseUrl = window.location.origin;
+
+    // Helper to process image path
+    const getImgUrl = (path) => {
+        if (!path) return '';
+        if (path.startsWith('http') || path.startsWith('//')) return path;
+
+        // If path is just a filename (e.g. "photo.jpg"), prepend standard path
+        if (!path.includes('/')) {
+            return `/assets/images/${path}`;
+        }
+
+        // If path starts with assets but misses slash
+        if (path.startsWith('assets/')) {
+            return '/' + path;
+        }
+
+        // Check if path already starts with slash
+        const cleanPath = path.startsWith('/') ? path : '/' + path;
+        return cleanPath;
+    };
+
     if (momentsData.length === 0) {
         wrapper.innerHTML = `
             <div class="empty-state" style="text-align:center; padding:50px;">
@@ -28,11 +51,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let imagesHtml = '';
             if (moment.image && moment.image !== 'null') {
-                imagesHtml += `<div class="moment-media"><img src="${moment.image}" loading="lazy" onclick="window.openLightbox(this.src)"></div>`;
+                const imgUrl = getImgUrl(moment.image);
+                imagesHtml += `<div class="moment-media"><img src="${imgUrl}" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x400?text=Image+Not+Found';" loading="lazy" onclick="window.openLightbox(this.src)"></div>`;
             }
             if (moment.images && Array.isArray(moment.images)) {
                 imagesHtml += `<div class="moment-gallery">
-                    ${moment.images.map(img => `<div class="gallery-item"><img src="${img}" loading="lazy" onclick="window.openLightbox(this.src)"></div>`).join('')}
+                    ${moment.images.map(img => {
+                    const iUrl = getImgUrl(img);
+                    return `<div class="gallery-item"><img src="${iUrl}" onerror="this.onerror=null;this.src='https://via.placeholder.com/300x300?text=Error';" loading="lazy" onclick="window.openLightbox(this.src)"></div>`;
+                }).join('')}
                 </div>`;
             }
 
