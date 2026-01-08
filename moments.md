@@ -33,15 +33,15 @@ permalink: /moments/
     <!-- Main Content -->
     <main class="moments-wrapper view-timeline" id="moments-wrapper">
         <!-- Liquid Logic to Aggregate Data -->
-        {% assign all_moments = "" | split: "" %}
+        {% assign all_moments = site.empty_array %}
         
-        {% comment %} Defensive coding: check if site.data.moments exists {% endcomment %}
         {% if site.data.moments %}
             {% for collection in site.data.moments %}
-                {% comment %} site.data.moments can be a hash (folder) or list. We handle folder inputs. {% endcomment %}
                 {% assign items = collection[1] %}
                 {% if items.first %}
-                    {% assign all_moments = all_moments | concat: items %}
+                    {% for item in items %}
+                        {% assign all_moments = all_moments | push: item %}
+                    {% endfor %}
                 {% endif %}
             {% endfor %}
         {% endif %}
