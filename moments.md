@@ -88,12 +88,33 @@ permalink: /moments/
             </div>
             <div class="form-row">
                 <div class="form-group half">
-                    <label>心情 (Emoji)</label>
-                    <input type="text" id="m-mood" class="form-input" placeholder="😊">
+                    <label>心情</label>
+                    <select id="m-mood" class="form-select">
+                        <option value="">选择心情...</option>
+                        <option value="😊 开心">😊 开心</option>
+                        <option value="🥳 兴奋">🥳 兴奋</option>
+                        <option value="🍲 满足">🍲 满足</option>
+                        <option value="🤔 思考">🤔 思考</option>
+                        <option value="😴 疲惫">😴 疲惫</option>
+                        <option value="😢 难过">😢 难过</option>
+                        <option value="😡 生气">😡 生气</option>
+                        <option value="🌟 期待">🌟 期待</option>
+                        <option value="🧘 平静">🧘 平静</option>
+                    </select>
                 </div>
                 <div class="form-group half">
-                    <label>天气 (Emoji)</label>
-                    <input type="text" id="m-weather" class="form-input" placeholder="☀️">
+                    <label>天气</label>
+                    <select id="m-weather" class="form-select">
+                        <option value="">选择天气...</option>
+                        <option value="☀️ 晴朗">☀️ 晴朗</option>
+                        <option value="☁️ 多云">☁️ 多云</option>
+                        <option value="⛅ 阴天">⛅ 阴天</option>
+                        <option value="🌧️ 下雨">🌧️ 下雨</option>
+                        <option value="❄️ 下雪">❄️ 下雪</option>
+                        <option value="⛈️ 雷雨">⛈️ 雷雨</option>
+                        <option value="🌫️ 雾天">🌫️ 雾天</option>
+                        <option value="🌬️ 大风">🌬️ 大风</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
